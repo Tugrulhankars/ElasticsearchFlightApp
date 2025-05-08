@@ -12,14 +12,10 @@ WORKDIR /src
 COPY ["FlightSearchApp.csproj", "./"]
 RUN dotnet restore "./FlightSearchApp.csproj"
 COPY . .
-WORKDIR "/src/FlightSearchApp"
-RUN dotnet build "FlightSearchApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish "FlightSearchApp.csproj" -c Release -o /app/publish
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "FlightSearchApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "FlightSearchApp.dll"]
