@@ -7,7 +7,7 @@ public class SearchDto
     public int PageSize { get; set; } = 10;
 
     public long PageLinkCount { get; set; }
-    public List<FlightDto> List { get; set; }
+    public List<FlightDto>? List { get; set; }
 
     public FlightSearchDto? FlightSearchDto { get; set; }
 
