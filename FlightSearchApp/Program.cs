@@ -4,6 +4,11 @@ using FlightSearchApp.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(7299); // HTTPS
+    options.ListenAnyIP(80);   // HTTP, opsiyonel
+});
 builder.Services.AddControllers()
         .AddJsonOptions(options =>
         {
