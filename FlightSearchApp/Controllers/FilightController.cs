@@ -18,7 +18,7 @@ public class FilightController : ControllerBase
     }
 
     [HttpPost("search")]
-    public async Task<IActionResult> SearchAsync([FromBody] SearchDto? searchDto)
+    public async Task<IActionResult> SearchAsync([FromQuery] SearchDto? searchDto)
     {
         var (flightList, totalCount, pageLinkCount) = await _flightService.SearchAsync(searchDto.FlightSearchDto,searchDto.Page,searchDto.PageSize);
 
