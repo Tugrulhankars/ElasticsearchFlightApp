@@ -9,7 +9,9 @@ public static class ElasticExtention
     {
         var userName = "elastic";
         var password = "changeme";
-        var settings = new ElasticsearchClientSettings(new Uri("http://localhost:9200")).Authentication(new BasicAuthentication(userName,password!));
+        var elasticHost = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST")
+                     ?? "http://localhost:9200"; // fallback
+        var settings = new ElasticsearchClientSettings(new Uri(elasticHost)).Authentication(new BasicAuthentication(userName,password!));
         var client=new ElasticsearchClient(settings);
 
         services.AddSingleton(client);
